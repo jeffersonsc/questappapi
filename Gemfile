@@ -32,6 +32,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Api gems
 gem 'active_model_serializers'
 
+gem 'mongoid', github: 'mongoid/mongoid'
+gem 'bson_ext'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
