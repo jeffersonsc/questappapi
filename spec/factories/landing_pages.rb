@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :landing_page do
-    email "MyString"
+    email { FFaker::Internet.email }
   end
 end
