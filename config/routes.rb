@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     #Set version of Api /v1/contents
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       #Set routes in v1 api in folder #controllers/api/v1
-
+      resources :landingpage, only: [:show]
     end
   end
 

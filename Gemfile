@@ -34,6 +34,7 @@ gem 'active_model_serializers'
 
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
+gem 'responders', '~> 2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,6 +44,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
