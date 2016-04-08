@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::LandingpageController, type: :controller do
+RSpec.describe Api::V1::LandingPagesController, type: :controller do
 	before(:each) {request.headers['Accept'] = "appication/vdn.questapp.v1"}
 
 	describe "GET #show" do

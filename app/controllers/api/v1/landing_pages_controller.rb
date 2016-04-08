@@ -1,4 +1,4 @@
-class Api::V1::LandingpageController < ApplicationController
+class Api::V1::LandingPagesController < ApplicationController
 	respond_to :json
 
 	def show
@@ -8,7 +8,7 @@ class Api::V1::LandingpageController < ApplicationController
 	def create
 		landingpage = LandingPage.new(landing_page_params)
 		if landingpage.save
-			render json: landingpage, status: 201#, location: [:api, landingpage]
+			render json: landingpage, status: 201 , location: [:api, landingpage]
 		else
 			render json: {errors: landingpage.errors}, status: 422
 		end

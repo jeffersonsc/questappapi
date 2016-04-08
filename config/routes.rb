@@ -1,6 +1,7 @@
 require 'api_constraints'
 Rails.application.routes.draw do
   
+  mount SabisuRails::Engine => "/sabisu_rails"
   #Api definition using namespace set #api in controller
   #Format default of response :json
   #Set constraint of subdomain to api exemple api.example.com
@@ -10,7 +11,7 @@ Rails.application.routes.draw do
     #Set version of Api /v1/contents
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       #Set routes in v1 api in folder #controllers/api/v1
-      resources :landingpage, only: [:show, :create]
+      resources :landing_pages, only: [:show, :create]
     end
   end
 
