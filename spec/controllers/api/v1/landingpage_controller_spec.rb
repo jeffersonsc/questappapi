@@ -18,7 +18,7 @@ RSpec.describe Api::V1::LandingpageController, type: :controller do
 	end
 
 	describe "POST #create" do
-		context "User has be created"
+		context "User has be created" do
 			before(:each) do
 				@user_attributes = FactoryGirl.attributes_for :landing_page
 				post :create, {landing_page: @user_attributes}, format: :json
@@ -29,13 +29,13 @@ RSpec.describe Api::V1::LandingpageController, type: :controller do
 				expect(user_response[:email]).to eql @user_attributes[:email]
 			end
 
-			it {expect(response).to have_http_status(201)}
+			it { expect(response).to have_http_status(201) }
 		end
 
 		context "User not creted test when" do
 			before(:each) do
 				#create parmas without email
-				@user_invalid_attributes = {}
+				@user_invalid_attributes = {email: ""}
 				post :create, {landing_page: @user_invalid_attributes}, format: :json
 			end
 
@@ -45,9 +45,12 @@ RSpec.describe Api::V1::LandingpageController, type: :controller do
 			end
 
 			it "Return error message to email" do
-
+				user_response = JSON.parse(response.body, symbolize_names: true)
+				expect(user_response[:errors][:email]).to include "can't be blank"
 			end
-		end
 
+			it { expect(response).to have_http_status(422) }
+		end
 	end
 end
+
