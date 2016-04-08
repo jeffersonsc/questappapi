@@ -1,7 +1,6 @@
 require 'api_constraints'
 Rails.application.routes.draw do
   
-  mount SabisuRails::Engine => "/sabisu_rails"
   #Api definition using namespace set #api in controller
   #Format default of response :json
   #Set constraint of subdomain to api exemple api.example.com
