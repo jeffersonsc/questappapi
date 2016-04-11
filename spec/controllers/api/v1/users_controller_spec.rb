@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
-
+	before(:each) {request.headers['Accept'] = "application/vnd.questappapi.v1"}
 	#Testing User controllers - Endpoint Users
 	describe "GET #show" do
 		before(:each) do
