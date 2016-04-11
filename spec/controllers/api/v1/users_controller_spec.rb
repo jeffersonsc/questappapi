@@ -52,4 +52,39 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 		end
 	end
 
+	describe "PUT/PATCH #update" do
+		context "When successfuly update" do
+			before(:each) do
+				@user = FactoryGirl.create :user
+				patch :update, {id: @user.id,  user: {email: "teste@teste.com"}}, format: :json
+			end
+
+			it "Render json representation for the update user" do
+				user_response = JSON.parse(response.body, symbolize_names: true)
+				expect(user_response[:email]).to eql "teste@teste.com"
+			end
+
+			it{expect(response).to have_http_status(200)}
+		end
+
+		context "When is note create user" do
+			before(:each) do
+				@user = FactoryGirl.create :user
+				patch :update, {id: @user.id, user: {email: "teste.com"}}
+			end
+
+			it "Renders an errors json" do
+				user_response = JSON.parse(response.body, symbolize_names: true)
+				expect(user_response).to have_key(:errors)
+			end
+
+			it "Renders errors messages is invalid" do
+				user_response = JSON.parse(response.body, symbolize_names: true)
+				expect(user_response[:errors][:email]).to include "is invalid"
+			end
+
+			it {expect(response).to have_http_status(422)}
+		end
+	end
+
 end
