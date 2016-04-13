@@ -1,15 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
-	before(:each) do
-		request.headers['Accept'] = "application/vnd.questappapi.v1 #{Mime::JSON}"
-		request.headers['Content-Type'] = Mime::JSON.to_s
-	end
-
+	
 	#Testing User controllers - Endpoint Users
 	describe "GET #show" do
 		before(:each) do
 			@user = FactoryGirl.create :user
+			api_authirization_header @user.auth_token
 			get :show, id: @user.id, format: :json
 		end
 
@@ -60,6 +57,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 		context "When successfuly update patch" do
 			before(:each) do
 				@user = FactoryGirl.create :user
+				api_authirization_header @user.auth_token
 				patch :update, {id: @user.id,  user: {email: "teste@teste.com"}}, format: :json
 			end
 
@@ -74,6 +72,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 		context "When is note create user patch" do
 			before(:each) do
 				@user = FactoryGirl.create :user
+				api_authirization_header @user.auth_token
 				patch :update, {id: @user.id, user: {email: "teste.com"}}
 			end
 
@@ -93,6 +92,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 		context "When successfuly update put" do
 			before(:each) do
 				@user = FactoryGirl.create :user
+				api_authirization_header @user.auth_token
 				put :update, {id: @user.id,  user: {email: "teste2@teste.com", password: "12345678910", password_confirmation: "12345678910"}}, format: :json
 			end
 
@@ -107,6 +107,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 		context "When is note create user put" do
 			before(:each) do
 				@user = FactoryGirl.create :user
+				api_authirization_header @user.auth_token
 				put :update, {id: @user.id, user: {email: "teste.com", password: "1234", password_confirmation: "1234"}}
 			end
 
@@ -127,6 +128,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 	describe "DELETE #destroy" do
 		before(:each) do
 			@user = FactoryGirl.create :user
+			api_authirization_header @user.auth_token
 			delete :destroy, {id: @user.id}, format: :json
 		end
 

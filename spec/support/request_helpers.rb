@@ -10,6 +10,10 @@ module Request
 			request.headers['Accept'] = "application/vnd.questappapi.v#{version}"
 		end
 
+		def api_authirization_header(token)
+			request.headers['Authorization'] = token
+		end
+
 		def api_response_format(format = Mime::Type)
 			request.headers['Accept'] = "#{request.headers['Accept']}, #{Mime::JSON}"
 			request.headers['Content-Type'] = Mime::JSON.to_s
