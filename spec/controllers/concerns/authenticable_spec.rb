@@ -32,6 +32,6 @@ describe Authenticable, :type => :controller do
 			expect(json_response[:errors]).to eql "Not authenticated"
 		end
 
-		#it { expect(response).to have_http_status(401)}
+		it { expect(response).to have_http_status(401)}
 	end
 end

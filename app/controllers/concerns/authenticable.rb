@@ -8,12 +8,4 @@ module Authenticable
 	def authenticate_with_token!
 		render json: {errors: "Not authenticated"} , status: 401 unless current_user.present?
 	end
-
-	def request
-		request
-	end
-
-	def response
-		response
-	end
 end
