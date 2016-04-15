@@ -9,6 +9,13 @@ RSpec.describe User, type: :model do
 	it{should respond_to(:password)}
 	it{should respond_to(:password_confirmation)}
 	it{should respond_to(:auth_token)}
+	it{should respond_to(:name)}
+	it{should respond_to(:nickname)}
+	it{should respond_to(:birthdate)}
+	it{should respond_to(:city)}
+	it{should respond_to(:state)}
+	it{should respond_to(:scores)}
+	it{should respond_to(:imageurl)}
 
 	it{should be_valid}
 
@@ -24,9 +31,18 @@ RSpec.describe User, type: :model do
 	it{should allow_value("exemple@domain.com").for(:email)}
 	it{should validate_uniqueness_of(:auth_token)}
 
+	it{should validate_presence_of(:name)}
+	it{should validate_presence_of(:nickname)}
+	it{should validate_uniqueness_of(:nickname)}
+	it{should validate_presence_of(:birthdate)}
+	it{should validate_presence_of(:city)}
+	it{should validate_presence_of(:state)}
+	it{should validate_presence_of(:scores)}
+	it{should validate_numericality_of(:scores)}
+
 	describe "#Generate authentication token!" do
 		it "Generate a unique toekn" do
-			Devise.stub(:friendly_token).and_return("auniquetoken123")
+			allow(Devise).to receive(:friendly_token).and_return("auniquetoken123")
 			@user.generate_authentication_token!
 			expect(@user.auth_token).to eql "auniquetoken123"
 		end

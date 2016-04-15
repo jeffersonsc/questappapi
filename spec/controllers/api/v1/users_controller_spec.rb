@@ -11,8 +11,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 		end
 
 		it "Return the information abaout a reporter on a hash" do
-			user_response = JSON.parse(response.body, symbolize_names: true)
-			expect(user_response[:email]).to eql @user.email
+			expect(json_response[:email]).to eql @user.email
 		end
 
 		it{expect(response).to have_http_status(200)}
@@ -26,8 +25,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 			end
 
 			it "Renders the json respresentation for the user record just created" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response[:email]).to eql @user_attr[:email]
+				expect(json_response[:email]).to eql @user_attr[:email]
+				expect(json_response[:name]).to eql	@user_attr[:name]
+				expect(json_response[:nickname]).to eql	@user_attr[:nickname]
+				expect(json_response[:birthdate]).to eql	'1994-05-14'
+				expect(json_response[:city]).to eql	@user_attr[:city]
+				expect(json_response[:state]).to eql	@user_attr[:state]
 			end
 
 			it{expect(response).to have_http_status(201)}
@@ -40,13 +43,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 			end
 
 			it "Renders an errors" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response).to have_key(:errors)
+				expect(json_response).to have_key(:errors)
 			end
 
-			it "Render message user cloud not be create" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response[:errors][:email]).to include "can't be blank" 
+			it "Render message user can't be create" do
+				expect(json_response[:errors][:email]).to include "can't be blank" 
 			end
 
 			it {expect(response).to have_http_status(422)}
@@ -58,12 +59,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 			before(:each) do
 				@user = FactoryGirl.create :user
 				api_authirization_header @user.auth_token
-				patch :update, {id: @user.id,  user: {email: "teste@teste.com"}}, format: :json
+				patch :update, {id: @user.id,  user: {email: "teste@teste.com", name: "Maria"}}, format: :json
 			end
 
 			it "Render json representation for the update user" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response[:email]).to eql "teste@teste.com"
+				expect(json_response[:email]).to eql "teste@teste.com"
+				expect(json_response[:name]).to eql "Maria"
 			end
 
 			it{expect(response).to have_http_status(200)}
@@ -77,13 +78,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 			end
 
 			it "Renders an errors json" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response).to have_key(:errors)
+				expect(json_response).to have_key(:errors)
 			end
 
 			it "Renders errors messages is invalid" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response[:errors][:email]).to include "is invalid"
+				expect(json_response[:errors][:email]).to include "is invalid"
 			end
 
 			it {expect(response).to have_http_status(422)}
@@ -97,8 +96,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 			end
 
 			it "Render json representation for the update user" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response[:email]).to eql "teste2@teste.com"
+				expect(json_response[:email]).to eql "teste2@teste.com"
 			end
 
 			it{expect(response).to have_http_status(200)}
@@ -112,13 +110,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 			end
 
 			it "Renders an errors json" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response).to have_key(:errors)
+				expect(json_response).to have_key(:errors)
 			end
 
 			it "Renders errors messages is invalid" do
-				user_response = JSON.parse(response.body, symbolize_names: true)
-				expect(user_response[:errors][:email]).to include "is invalid"
+				expect(json_response[:errors][:email]).to include "is invalid"
 			end
 
 			it {expect(response).to have_http_status(422)}

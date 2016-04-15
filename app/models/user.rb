@@ -7,6 +7,12 @@ class User < ActiveRecord::Base
   before_create :generate_authentication_token!
 
   validates :auth_token, uniqueness: true
+  validates :name, presence: true
+  validates :nickname, presence: true, uniqueness: true
+  validates :birthdate, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :scores, presence: true, numericality: true
 
 
   #Generate token for authetication user
