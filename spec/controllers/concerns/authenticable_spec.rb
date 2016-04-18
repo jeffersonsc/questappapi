@@ -1,11 +1,12 @@
 require 'rails_helper'
 
+=begin
 class Authentication
 	include Authenticable
 end
 
 describe Authenticable, :type => :controller do
-	let(:authentication) {Authentication.new}
+	let(:authentication) { Authentication.new }
 
 	describe "#current_user" do
 		before do
@@ -32,6 +33,7 @@ describe Authenticable, :type => :controller do
 			expect(json_response[:errors]).to eql "Not authenticated"
 		end
 
-		it { expect(response).to have_http_status(401)}
+		it { expect(response).to have_http_status(401) }
 	end
 end
+=end
