@@ -79,7 +79,11 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: questappapi_production
-  username: postgres
-  password: <%= ENV['QUESTAPPAPI_DATABASE_PASSWORD'] %>
+  adapter: ibm_db
+  username: user05970
+  password: x3zhyLgwglM4
+  database: SQLDB # Database name
+  #schema: db2inst1
+  host: 5.10.125.192 #Host on which the database resides
+  port: 50000 #port to which the remote Dataserver is listening
+
